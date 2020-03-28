@@ -59,24 +59,20 @@ ul {
 .list-bullet {
     font-size: 24px;
     font-weight: 900;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 #lb-1 {
     /* color: #d8b5ff; */
     background-image: linear-gradient(to right, #d8b5ff, #1eae98);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 #lb-2 {
     /* color: #6fd6ff; */
     background-image: linear-gradient(to right, #f1eab9, #ff8c8c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 #lb-3 {
     /* color: #f1eab9; */
     background-image: linear-gradient(to right, #bff098, #6fd6ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 #instruction-list li {
