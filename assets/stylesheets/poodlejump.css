@@ -11,10 +11,14 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.game-title {
+#game-title {
     /* font-size: 36px; */
     font-weight: 700;
     letter-spacing: 0.5px;
+}
+
+#game-title:hover {
+    cursor: pointer;
 }
 
 .main {
@@ -38,7 +42,7 @@ ul {
     top: 300px;
     color: white;
     padding: 20px 30px;
-    background-color: rgba(255, 255, 255, 0.322)
+    background-color: rgba(255, 255, 255, 0.322);
 }
 
 #instructions-label {
@@ -83,7 +87,7 @@ ul {
     font-weight: 600;
     padding: 3px 12px;
     border: 3px solid white;
-    border-radius: 3px;
+    border-radius: 5px;
     letter-spacing: 0.5px;
     background-color: #00000062;
 }
