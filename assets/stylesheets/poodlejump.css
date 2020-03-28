@@ -17,14 +17,102 @@ body {
 
 .main {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#game-left, #game-right {
-    width: 300px;
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 #canvas {
     background-color: #333;
+}
+
+#instructions {
+    position: absolute;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    top: 300px;
+    color: white;
+    padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.322)
+}
+
+#instructions-label {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    /* text-decoration: underline; */
+    border-bottom: 2px solid white;
+}
+
+#instruction-list {
+    font-size: 20px;
+    margin-top: 15px;
+    letter-spacing: 0.2px;
+}
+
+.list-bullet {
+    font-size: 24px;
+    font-weight: 900;
+}
+#lb-1 {
+    /* color: #d8b5ff; */
+    background-image: linear-gradient(to right, #d8b5ff, #1eae98);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#lb-2 {
+    /* color: #6fd6ff; */
+    background-image: linear-gradient(to right, #f1eab9, #ff8c8c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#lb-3 {
+    /* color: #f1eab9; */
+    background-image: linear-gradient(to right, #bff098, #6fd6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#instruction-list li {
+    margin-bottom: 5px;
+}
+
+#start, #replay {
+    position: absolute;
+    top: 550px;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 3px 10px;;
+    /* height: 50px; */
+    border: 3px solid white;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+
+#start:hover, #replay:hover {
+    cursor: pointer;
+    color: #f98dc9;
+    border: 3px solid #27fdf5;
+}
+
+#game-over {
+    position: absolute;
+    flex-wrap: wrap;
+    text-align: center;
+    top: 320px;
+    color: white;
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 20px 30px;
+    background-color: #0000004f;
 }
 
 .hidden {

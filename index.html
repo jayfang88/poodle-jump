@@ -9,20 +9,26 @@
     <script src="./lib/bundle.js"></script>
 </head>
 
-<body>
+<body background='./assets/images/background2.png'>
     <header>
         <h1 class='game-title'>Poodle Jump</h1>
     </header>
 
     <main class='main'>
-        <div id='game-left'>instructions here</div>
-        <div id='game'>
             <canvas id="canvas" width="700" height="780"></canvas>
+            <div id='instructions'>
+                <label id='instructions-label'>Instructions:</label>
+                <ul id='instruction-list'>
+                    <li><span class='list-bullet' id='lb-1'>-</span> Use left and right arrow keys to move around</li>
+                    <li><span class='list-bullet' id='lb-2'>-</span> Land on the platforms to continue jumping</li>
+                    <li><span class='list-bullet' id='lb-3'>-</span> See how long you can survive!</li>
+                </ul>
+            </div>
             <div id='start'>Start!</div>
+            <!-- <div id='game-over'>I'm so sorry, I wish this game worked better</div> -->
+            <div id='game-over'>Game Over :(</div>
             <div id='replay'>Play again?</div>
-        </div>
-        <div id='game-right'></div>
-    </main>
+        </main>
     
 </body>
 
