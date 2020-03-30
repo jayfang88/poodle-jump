@@ -109,7 +109,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var NUM_PLATFORMS = 25;
+var NUM_PLATFORMS = 15;
 
 var Game = /*#__PURE__*/function () {
   function Game(canvas) {
@@ -217,7 +217,11 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "updateScore",
     value: function updateScore() {
-      // this.score += this.poodle.heightIncrease;
+      if (this.poodle.heightJumped > this.score) {
+        this.score = Math.round(this.poodle.heightJumped);
+      } // this.score += this.poodle.heightIncrease;
+
+
       this.ctx.font = '40px Chalkboard';
       this.ctx.fillStyle = 'white';
       this.ctx.fillText(this.score, 20, 50);
@@ -322,8 +326,8 @@ var Platform = /*#__PURE__*/function () {
     this.h = 12; // this.x = this.game.dimensions.width/2 - this.w/2;
     // this.y = 550;
 
-    this.x = Math.floor(Math.random() * (this.game.dimensions.width - this.w));
-    this.y = Math.floor(Math.random() * (this.game.dimensions.height - this.h));
+    this.x = Math.random() * (this.game.dimensions.width - this.w);
+    this.y = Math.random() * (this.game.dimensions.height - this.h);
     this.randColor();
   }
 
@@ -345,7 +349,7 @@ var Platform = /*#__PURE__*/function () {
   }, {
     key: "move",
     value: function move() {
-      this.y = this.y + 1;
+      this.y = this.y + 1.5;
 
       if (this.y >= this.game.dimensions.height) {
         this.y = 0;
@@ -379,53 +383,53 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var CONSTANTS = {
-  GRAVITY: 0.4,
-  JUMP_HEIGHT: 20
-};
-
 var Poodle = /*#__PURE__*/function () {
   function Poodle(dimensions) {
     _classCallCheck(this, Poodle);
 
     this.boardDimensions = dimensions;
+    this.heightJumped = 0;
     this.left = false;
     this.right = false;
     this.jumping = true;
     this.x = dimensions.width / 2;
     this.y = 450;
+    this.r = 25;
     this.w = 50;
     this.h = 50;
     this.xVel = 5;
-    this.elasticity = 0.6;
+    this.bounce = 0.6;
     this.yVel = 10;
-    this.gravity = 0.5;
+    this.gravity = 0.3;
     this.gravitySpeed = 0;
   }
 
   _createClass(Poodle, [{
     key: "move",
     value: function move() {
-      var _this = this;
-
       if (this.jumping) {
-        this.y -= 10;
-        setTimeout(function () {
-          _this.jumping = false;
-        }, 300); // let jumpHeight = 25;
+        this.jumping = false;
+        this.gravitySpeed = 0;
+        this.yVel = -this.yVel; // this.y -= 10;
+        // setTimeout(() => {this.jumping = false}, 300);
+        // this.jumping = false;
+        // let jumpHeight = 25;
         // jumpHeight *= this.elasticity;
         // if (jumpHeight < 1) {
         //     this.jumping = false;
         // }
         // this.yVel += this.gravity;
         // this.y -= this.yVel;
-      } else {
-        this.yVel = 10; // this.gravitySpeed += this.gravity;
-        // this.y += this.yVel + this.gravitySpeed;
+      } //else {
+      // this.gravitySpeed += this.gravity;
+      // this.y += this.yVel + this.gravitySpeed;
+      //     this.yVel = 10;
+      //     this.y += this.yVel;
+      // }
 
-        this.y += this.yVel;
-      } // this.y += this.yVel;
 
+      this.gravitySpeed += this.gravity;
+      this.y += this.yVel + this.gravitySpeed;
 
       if (this.left) {
         this.moveLeft();
@@ -436,57 +440,21 @@ var Poodle = /*#__PURE__*/function () {
   }, {
     key: "landedOn",
     value: function landedOn(platform) {
-      var poBottom = Math.floor(this.y + this.h / 2); // let plTop = Math.floor(platform.y);
+      var poBottom = this.y + this.r;
+      var poMid = Math.floor(this.x + this.r);
 
-      var plTop = [];
-
-      for (var i = platform.y - 5; i < platform.y + 5; i++) {
-        plTop.push(i);
-      } // let poContact = [];
-      // let poRight = this.x + this.w;
-      // for (let i = this.x; i < poRight; i++) {
-      //     poContact.push(Math.floor(i));
-      // }
-      // let plContact = [];
-      // let platformW = platform.x + platform.w;
-      // for (let j = platform.x; j < platformW; j++) {
-      //     plContact.push(Math.floor(j));
-      // }
-      // if (plTop.includes(poBottom) && (this.overlap(poContact, plContact))) {
-      //     console.log('bouncing');
-      //     return true;
-      // } else {
-      //     return false;
-      // }
-
-
-      var poMid = Math.floor(this.w / 2 + this.x);
-
-      if (plTop.includes(poBottom) && this.overlap(poMid, platform)) {
-        this.jumping = true;
-        this.move();
-        return true;
+      if (poBottom <= platform.y + platform.h + 5 && poBottom >= platform.y - 5 && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
+        if (this.yVel < 0) {
+          this.jumping = true;
+          this.yVel = -this.yVel;
+          this.heightJumped += 13;
+          this.move();
+          return true;
+        }
       } else {
         return false;
       }
     }
-  }, {
-    key: "overlap",
-    value: function overlap(poMid, platform) {
-      var pEnd = platform.x + platform.w;
-
-      if (poMid >= platform.x + 20 && poMid <= pEnd + 25) {
-        return true;
-      }
-
-      return false;
-    } // overlap(poodleB, platformT) {
-    //     for (let i = 0; i < poodleB.length; i++) {
-    //         if (platformT.includes(poodleB[i])) return true;
-    //     }
-    //     return false;
-    // }
-
   }, {
     key: "moveLeft",
     value: function moveLeft() {
@@ -506,7 +474,7 @@ var Poodle = /*#__PURE__*/function () {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.w / 2, 0, 2 * Math.PI);
       ctx.fillStyle = 'rgba(255, 255, 255)';
-      ctx.fill();
+      ctx.fill(); // ctx.fillRect(this.x, this.y, this.w, this.h);
     }
   }, {
     key: "outOfBounds",
