@@ -9,6 +9,29 @@ body {
     font-family: 'Courier';
 }
 
+.header {
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-sides {
+    width: auto;
+}
+
+#github {
+    position: relative;
+    top: 5px;
+    width: 38px;
+}
+
+#linkedin {
+    position: relative;
+    top: 5px;
+    width: 40px;
+}
+
 #game-title {
     font-size: 36px;
     font-weight: 700;
