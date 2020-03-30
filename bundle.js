@@ -108,11 +108,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-
-var NUM_PLATFORMS = 20;
+ // const NUM_PLATFORMS = 15;
 
 var Game = /*#__PURE__*/function () {
-  function Game(canvas) {
+  function Game(canvas, difficulty) {
     _classCallCheck(this, Game);
 
     this.ctx = canvas.getContext('2d');
@@ -120,20 +119,33 @@ var Game = /*#__PURE__*/function () {
       width: canvas.width,
       height: canvas.height
     };
+    this.difficulty = difficulty;
     this.gameOver = false;
     this.score = 0;
     this.platforms = [];
-    this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_2__["default"](this.dimensions);
+    this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_2__["default"](this.dimensions, this.difficulty);
+
+    switch (difficulty) {
+      case 'easy':
+        this.num_platforms = 20;
+        break;
+
+      case 'insane':
+        this.num_platforms = 20;
+        break;
+
+      default:
+        this.num_platforms = 15;
+    }
+
     this.addPlatforms();
   }
 
   _createClass(Game, [{
     key: "addPlatforms",
     value: function addPlatforms() {
-      for (var i = 0; i < NUM_PLATFORMS; i++) {
-        this.platforms.push(new _platform__WEBPACK_IMPORTED_MODULE_1__["default"]({
-          game: this
-        }));
+      for (var i = 0; i < this.num_platforms; i++) {
+        this.platforms.push(new _platform__WEBPACK_IMPORTED_MODULE_1__["default"](this));
       }
     }
   }, {
@@ -157,7 +169,7 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "checkLanding",
     value: function checkLanding() {
-      for (var i = 0; i < NUM_PLATFORMS; i++) {
+      for (var i = 0; i < this.num_platforms; i++) {
         var platform = this.platforms[i];
 
         if (this.poodle.landedOn(platform)) {
@@ -265,27 +277,57 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var canvas = document.getElementById('canvas');
-  var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas);
-
-  document.onkeydown = function (e) {
-    return game.keydown(e);
-  };
-
-  document.onkeyup = function (e) {
-    return game.keyup(e);
-  };
-
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start').click(function () {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#easy').click(function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#start').addClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
+    var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'easy');
+
+    document.onkeydown = function (e) {
+      return game.keydown(e);
+    };
+
+    document.onkeyup = function (e) {
+      return game.keyup(e);
+    };
+
+    game.play();
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#normal').click(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
+    var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'normal');
+
+    document.onkeydown = function (e) {
+      return game.keydown(e);
+    };
+
+    document.onkeyup = function (e) {
+      return game.keyup(e);
+    };
+
+    game.play();
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#insane').click(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
+    var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'insane');
+
+    document.onkeydown = function (e) {
+      return game.keydown(e);
+    };
+
+    document.onkeyup = function (e) {
+      return game.keyup(e);
+    };
+
     game.play();
   });
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').addClass('hidden');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#game-over').addClass('hidden');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').click(function () {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').addClass('hidden');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#game-over').addClass('hidden');
-    game.restart();
+    window.location.reload(); // $('#replay').addClass('hidden');
+    // $('#game-over').addClass('hidden');
+    // game.restart();
   });
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#game-title').click(function () {
     window.location.reload();
@@ -318,15 +360,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var HEX_DIGITS = "0123456789ABCDEF";
 
 var Platform = /*#__PURE__*/function () {
-  function Platform(options) {
+  function Platform(game) {
     _classCallCheck(this, Platform);
 
-    this.game = options.game;
+    this.game = game;
     this.w = 65;
     this.h = 12;
     this.x = Math.random() * (this.game.dimensions.width - this.w);
     this.y = Math.random() * (this.game.dimensions.height - this.h);
-    this.randColor();
+    this.randColor(); // debugger;
+
+    switch (game.difficulty) {
+      case 'easy':
+        this.yVel = 2;
+        break;
+
+      case 'insane':
+        this.yVel = 8;
+        break;
+
+      default:
+        this.yVel = 3.5;
+    }
+
+    ;
   }
 
   _createClass(Platform, [{
@@ -347,7 +404,7 @@ var Platform = /*#__PURE__*/function () {
   }, {
     key: "move",
     value: function move() {
-      this.y = this.y + 2;
+      this.y = this.y + this.yVel;
 
       if (this.y >= this.game.dimensions.height) {
         this.y = 0;
@@ -382,10 +439,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Poodle = /*#__PURE__*/function () {
-  function Poodle(dimensions) {
+  function Poodle(dimensions, difficulty) {
     _classCallCheck(this, Poodle);
 
     this.boardDimensions = dimensions;
+    this.difficulty = difficulty;
     this.heightJumped = 0;
     this.left = false;
     this.right = false;
@@ -396,8 +454,27 @@ var Poodle = /*#__PURE__*/function () {
     this.w = 50;
     this.h = 50;
     this.xVel = 5;
-    this.yVel = 10;
-    this.gravity = 0.38;
+
+    switch (this.difficulty) {
+      case 'easy':
+        this.yVel = 11;
+        this.yAcc = 11;
+        this.gravity = 0.35;
+        break;
+
+      case 'insane':
+        this.yVel = 20;
+        this.yAcc = 20;
+        this.gravity = 0.95;
+        break;
+
+      default:
+        this.yVel = 13;
+        this.yAcc = 13;
+        this.gravity = 0.5;
+    }
+
+    ;
   }
 
   _createClass(Poodle, [{
@@ -406,7 +483,19 @@ var Poodle = /*#__PURE__*/function () {
       if (this.jumping) {
         this.jumping = false;
         this.gravitySpeed = 0;
-        this.yVel = -11;
+
+        switch (this.difficulty) {
+          case 'easy':
+            this.yVel = -11;
+            break;
+
+          case 'insane':
+            this.yVel = -20;
+            break;
+
+          default:
+            this.yVel = -13;
+        }
       }
 
       this.yVel += this.gravity;
@@ -423,7 +512,7 @@ var Poodle = /*#__PURE__*/function () {
     value: function landedOn(platform) {
       var poBottom = this.y + this.r;
 
-      if (poBottom <= platform.y + platform.h && poBottom >= platform.y && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
+      if (poBottom <= platform.y + platform.h + 3 && poBottom >= platform.y - 3 && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
         if (this.yVel > 0) {
           this.jumping = true;
           this.heightJumped += this.yVel * 4;

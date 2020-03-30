@@ -37,7 +37,7 @@ ul {
 
 #instructions {
     position: absolute;
-    top: 300px;
+    top: 220px;
     color: white;
     padding: 24px 25px;
     background-color: rgba(255, 255, 255, 0.274);
@@ -45,7 +45,6 @@ ul {
 }
 
 #instructions-label {
-    /* color: rgb(139, 6, 6); */
     color: #f98dc9;
     font-size: 26px;
     font-weight: 600;
@@ -81,9 +80,9 @@ ul {
     font-weight: 600;
 }
 
-#start, #replay {
+#replay {
     position: absolute;
-    top: 580px;
+    top: 540px;
     color: white;
     font-size: 28px;
     font-weight: 600;
@@ -94,10 +93,52 @@ ul {
     background-color: #00000062;
 }
 
-#start:hover, #replay:hover {
+#replay:hover, #normal:hover {
     cursor: pointer;
     color: #f98dc9;
     border: 3px solid #27fdf5;
+}
+#easy:hover {
+    cursor: pointer;
+    color: #fdb515;
+    border: 3px solid #2f6ca5;
+}
+#insane:hover {
+    cursor: pointer;
+    color: red;
+    border: 3px solid black;
+}
+
+#select-mode {
+    position: absolute;
+    top: 480px;
+}
+
+#mode-label {
+    color: white;
+    font-size: 26px;
+    text-align: center;
+}
+
+#mode-choices {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-mode {
+    width: 70%;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 3px 0px;
+    border: 3px solid white;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    background-color: #00000062;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 #game-over {
@@ -105,7 +146,7 @@ ul {
     flex-wrap: wrap;
     text-align: center;
     max-width: 500px;
-    top: 360px;
+    top: 340px;
     color: white;
     font-size: 34px;
     font-weight: 600;
