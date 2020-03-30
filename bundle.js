@@ -323,9 +323,7 @@ var Platform = /*#__PURE__*/function () {
 
     this.game = options.game;
     this.w = 65;
-    this.h = 12; // this.x = this.game.dimensions.width/2 - this.w/2;
-    // this.y = 550;
-
+    this.h = 12;
     this.x = Math.random() * (this.game.dimensions.width - this.w);
     this.y = Math.random() * (this.game.dimensions.height - this.h);
     this.randColor();
@@ -399,8 +397,7 @@ var Poodle = /*#__PURE__*/function () {
     this.h = 50;
     this.xVel = 5;
     this.yVel = 10;
-    this.gravity = 0.3;
-    this.gravitySpeed = 0;
+    this.gravity = 0.38;
   }
 
   _createClass(Poodle, [{
@@ -409,11 +406,11 @@ var Poodle = /*#__PURE__*/function () {
       if (this.jumping) {
         this.jumping = false;
         this.gravitySpeed = 0;
-        this.yVel = -10;
+        this.yVel = -11;
       }
 
-      this.gravitySpeed += this.gravity;
-      this.y += this.yVel + this.gravitySpeed;
+      this.yVel += this.gravity;
+      this.y += this.yVel;
 
       if (this.left) {
         this.moveLeft();
@@ -427,10 +424,11 @@ var Poodle = /*#__PURE__*/function () {
       var poBottom = this.y + this.r;
 
       if (poBottom <= platform.y + platform.h && poBottom >= platform.y && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
-        this.jumping = true;
-        this.heightJumped += this.gravitySpeed;
-        this.move();
-        return true;
+        if (this.yVel > 0) {
+          this.jumping = true;
+          this.heightJumped += this.yVel * 4;
+          return true;
+        }
       } else {
         return false;
       }
