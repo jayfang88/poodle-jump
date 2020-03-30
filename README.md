@@ -2,7 +2,7 @@
 
 [Live Link](https://jayfang88.github.io/poodle-jump/)
 
-![](pj-test3.gif)
+![Poodle Jump demo](assets/pj-demo.gif)
 
 ### Background
 Poodle Jump is a simple 1-player game, inspired by the classic mobile game "Doodle Jump." The objective of the game is to last as long as you can by continuously jumping on platforms.
