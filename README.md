@@ -77,7 +77,7 @@ landedOn(platform) {
     let poBottom = this.y + this.r;
 
     //Locate the bottom y of poodle and check if it is within the y values of 
-    //the platform. Check if poodle x edges are within 10px of platform x values.
+    //the platform. Check if poodle x edges are at least 10px within platform x values.
     if ((poBottom <= platform.y + platform.h + 3) && (poBottom >= platform.y - 3) && 
     (this.x >= platform.x - this.r + 10) && (this.x <= platform.x + platform.w - 10)) {
         //If poodle is already jumping or on it's way up, do not repeatedly jump.
@@ -95,6 +95,6 @@ landedOn(platform) {
 
 
 ### Future Features
-- Replace player icon from white ball to preloaded avatar images
-- Allow users to select desired avatar to play with
+- Replace player icon from white ball to preloaded poodle images
+- Allow users to select desired character to play with
 - Implement game sounds
