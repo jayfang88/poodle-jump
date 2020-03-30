@@ -109,7 +109,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var NUM_PLATFORMS = 15;
+var NUM_PLATFORMS = 20;
 
 var Game = /*#__PURE__*/function () {
   function Game(canvas) {
@@ -349,7 +349,7 @@ var Platform = /*#__PURE__*/function () {
   }, {
     key: "move",
     value: function move() {
-      this.y = this.y + 1.5;
+      this.y = this.y + 2;
 
       if (this.y >= this.game.dimensions.height) {
         this.y = 0;
@@ -398,7 +398,6 @@ var Poodle = /*#__PURE__*/function () {
     this.w = 50;
     this.h = 50;
     this.xVel = 5;
-    this.bounce = 0.6;
     this.yVel = 10;
     this.gravity = 0.3;
     this.gravitySpeed = 0;
@@ -410,23 +409,8 @@ var Poodle = /*#__PURE__*/function () {
       if (this.jumping) {
         this.jumping = false;
         this.gravitySpeed = 0;
-        this.yVel = -this.yVel; // this.y -= 10;
-        // setTimeout(() => {this.jumping = false}, 300);
-        // this.jumping = false;
-        // let jumpHeight = 25;
-        // jumpHeight *= this.elasticity;
-        // if (jumpHeight < 1) {
-        //     this.jumping = false;
-        // }
-        // this.yVel += this.gravity;
-        // this.y -= this.yVel;
-      } //else {
-      // this.gravitySpeed += this.gravity;
-      // this.y += this.yVel + this.gravitySpeed;
-      //     this.yVel = 10;
-      //     this.y += this.yVel;
-      // }
-
+        this.yVel = -10;
+      }
 
       this.gravitySpeed += this.gravity;
       this.y += this.yVel + this.gravitySpeed;
@@ -441,16 +425,12 @@ var Poodle = /*#__PURE__*/function () {
     key: "landedOn",
     value: function landedOn(platform) {
       var poBottom = this.y + this.r;
-      var poMid = Math.floor(this.x + this.r);
 
-      if (poBottom <= platform.y + platform.h + 5 && poBottom >= platform.y - 5 && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
-        if (this.yVel < 0) {
-          this.jumping = true;
-          this.yVel = -this.yVel;
-          this.heightJumped += 13;
-          this.move();
-          return true;
-        }
+      if (poBottom <= platform.y + platform.h && poBottom >= platform.y && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
+        this.jumping = true;
+        this.heightJumped += this.gravitySpeed;
+        this.move();
+        return true;
       } else {
         return false;
       }
