@@ -223,8 +223,10 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').removeClass('hidden');
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#game-over').removeClass('hidden');
+      var replay = document.getElementById('replay');
+      var gameOver = document.getElementById('game-over');
+      replay.classList.remove('hidden');
+      gameOver.classList.remove('hidden');
     }
   }, {
     key: "updateScore",
@@ -276,7 +278,12 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var canvas = document.getElementById('canvas');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#easy').click(function () {
+  var replay = document.getElementById('replay');
+  var gameOver = document.getElementById('game-over');
+  replay.classList.add('hidden');
+  gameOver.classList.add('hidden');
+  var easy = document.getElementById('easy');
+  easy.addEventListener('click', function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
     var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'easy');
@@ -291,7 +298,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     game.play();
   });
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#normal').click(function () {
+  var normal = document.getElementById('normal');
+  normal.addEventListener('click', function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
     var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'normal');
@@ -306,7 +314,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     game.play();
   });
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#insane').click(function () {
+  var insane = document.getElementById('insane');
+  insane.addEventListener('click', function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#instructions').addClass('hidden');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#select-mode').addClass('hidden');
     var game = new _game__WEBPACK_IMPORTED_MODULE_1__["default"](canvas, 'insane');
@@ -321,8 +330,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
     game.play();
   });
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').addClass('hidden');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#game-over').addClass('hidden');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#replay').click(function () {
     window.location.reload(); // $('#replay').addClass('hidden');
     // $('#game-over').addClass('hidden');
