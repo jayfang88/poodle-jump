@@ -108,7 +108,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
- // const NUM_PLATFORMS = 15;
+
 
 var Game = /*#__PURE__*/function () {
   function Game(canvas, difficulty) {
@@ -231,8 +231,7 @@ var Game = /*#__PURE__*/function () {
     value: function updateScore() {
       if (this.poodle.heightJumped > this.score) {
         this.score = Math.round(this.poodle.heightJumped);
-      } // this.score += this.poodle.heightIncrease;
-
+      }
 
       this.ctx.font = '40px Chalkboard';
       this.ctx.fillStyle = 'white';
@@ -368,7 +367,7 @@ var Platform = /*#__PURE__*/function () {
     this.h = 12;
     this.x = Math.random() * (this.game.dimensions.width - this.w);
     this.y = Math.random() * (this.game.dimensions.height - this.h);
-    this.randColor(); // debugger;
+    this.randColor();
 
     switch (game.difficulty) {
       case 'easy':
