@@ -2,12 +2,13 @@
 
 [Live Link](https://jayfang88.github.io/poodle-jump/)
 
-![Poodle Jump demo](assets/pj-demo.gif)
-
 ### Background
 Poodle Jump is a simple 1-player game, inspired by the classic mobile game "Doodle Jump." The objective of the game is to last as long as you can by continuously jumping on platforms.
 
+![Poodle Jump demo](assets/pj-demo.gif)
+
 ### Controls
+- Select desired game difficulty
 - Control the Poodle with '<' and '>' keys
 - Your current score is displayed in the upper left corner
 
@@ -20,6 +21,7 @@ Poodle Jump is a simple 1-player game, inspired by the classic mobile game "Dood
 Within Poodle Jump, users are able to:
 - Select desired game difficulty
 - Move the poodle left and right in the game
+- Wrap around the edge to prevent boundaries and falling off the screen
 - View the current high score
 
 
@@ -55,7 +57,9 @@ move() {
                 this.yVel = -13;
         }
     }
-        
+    
+    //Consistently add gravity to y velocity. This updates and increases yVel
+    //each animation frame.
     this.yVel += this.gravity;
     this.y += this.yVel
 
@@ -72,8 +76,12 @@ Collision detection between the poodle and platform determines if the poodle is 
 landedOn(platform) {
     let poBottom = this.y + this.r;
 
+    //Locate the bottom y of poodle and check if it is within the y values of 
+    //the platform. Check if poodle x edges are within 10px of platform x values.
     if ((poBottom <= platform.y + platform.h + 3) && (poBottom >= platform.y - 3) && 
     (this.x >= platform.x - this.r + 10) && (this.x <= platform.x + platform.w - 10)) {
+        //If poodle is already jumping or on it's way up, do not repeatedly jump.
+        //Only jumps if yVel is positive, or the poodle is falling once again.
         if (this.yVel > 0) {
             this.jumping = true;
             this.heightJumped += (this.yVel * 4);
