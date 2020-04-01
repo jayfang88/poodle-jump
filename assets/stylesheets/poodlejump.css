@@ -20,12 +20,22 @@ body {
     position: relative;
     top: 5px;
     width: 38px;
+    /* filter: brightness(50%); */
 }
 
 #linkedin {
     position: relative;
     top: 5px;
     width: 40px;
+    filter: brightness(70%);
+}
+
+#github:hover {
+    opacity: 50%;
+}
+
+#linkedin:hover {
+    filter: brightness(110%);
 }
 
 #game-title {
