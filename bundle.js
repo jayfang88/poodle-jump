@@ -456,24 +456,23 @@ var Poodle = /*#__PURE__*/function () {
     this.r = 25;
     this.w = 50;
     this.h = 50;
-    this.xVel = 5;
 
     switch (this.difficulty) {
       case 'easy':
+        this.xVel = 5;
         this.yVel = 11;
-        this.yAcc = 11;
         this.gravity = 0.35;
         break;
 
       case 'insane':
+        this.xVel = 7;
         this.yVel = 20;
-        this.yAcc = 20;
         this.gravity = 0.95;
         break;
 
       default:
+        this.xVel = 5;
         this.yVel = 13;
-        this.yAcc = 13;
         this.gravity = 0.5;
     }
 
@@ -499,7 +498,9 @@ var Poodle = /*#__PURE__*/function () {
           default:
             this.yVel = -13;
         }
-      }
+      } //Consistently add gravity to y velocity. This updates and increases yVel
+      //each animation frame.
+
 
       this.yVel += this.gravity;
       this.y += this.yVel;
@@ -513,9 +514,12 @@ var Poodle = /*#__PURE__*/function () {
   }, {
     key: "landedOn",
     value: function landedOn(platform) {
-      var poBottom = this.y + this.r;
+      var poBottom = this.y + this.r; //Locate the bottom y of poodle and check if it is within the y values of 
+      //the platform. Check if poodle x edges are at least 10px within platform x values.
 
       if (poBottom <= platform.y + platform.h + 3 && poBottom >= platform.y - 3 && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
+        //If poodle is already jumping or on it's way up, do not repeatedly jump.
+        //Only jumps if yVel is positive, or the poodle is falling once again.
         if (this.yVel > 0) {
           this.jumping = true;
           this.heightJumped += this.yVel * 4;

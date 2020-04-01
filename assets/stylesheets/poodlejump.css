@@ -31,7 +31,6 @@ body {
 }
 
 #github:hover {
-    /* opacity: 50%; */
     filter: brightness(40%);
 }
 
@@ -42,13 +41,12 @@ body {
 #game-title {
     font-size: 36px;
     font-weight: 700;
-    color: rgb(80, 80, 80);
+    color: #333333;
 }
 
 #game-title:hover {
     cursor: pointer;
-    text-decoration: underline rgba(59, 59, 59, 0.76);
-    /* text-decoration: underline #f98dc9; */
+    text-decoration: underline #303030c2;
 }
 
 .main {
