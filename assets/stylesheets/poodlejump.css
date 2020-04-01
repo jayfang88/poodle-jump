@@ -20,18 +20,19 @@ body {
     position: relative;
     top: 5px;
     width: 38px;
-    /* filter: brightness(50%); */
+    filter: brightness(10%);
 }
 
 #linkedin {
     position: relative;
     top: 5px;
     width: 40px;
-    filter: brightness(70%);
+    filter: brightness(60%);
 }
 
 #github:hover {
-    opacity: 50%;
+    /* opacity: 50%; */
+    filter: brightness(40%);
 }
 
 #linkedin:hover {
@@ -41,10 +42,13 @@ body {
 #game-title {
     font-size: 36px;
     font-weight: 700;
+    color: rgb(80, 80, 80);
 }
 
 #game-title:hover {
     cursor: pointer;
+    text-decoration: underline rgba(59, 59, 59, 0.76);
+    /* text-decoration: underline #f98dc9; */
 }
 
 .main {
