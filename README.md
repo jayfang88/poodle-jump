@@ -10,7 +10,7 @@ Poodle Jump is a simple 1-player game, inspired by the classic mobile game "Dood
 ### Controls
 - Select desired game difficulty
 - Control the Poodle with '<' and '>' keys
-- Your current score is displayed in the upper left corner
+- View your current score, displayed in the upper left corner
 
 ### Architecture and Technologies
 - Vanilla JavaScript for game logic and event handlers
