@@ -108,7 +108,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var Game = /*#__PURE__*/function () {
-  function Game(canvas, difficulty) {
+  function Game(canvas) {
     _classCallCheck(this, Game);
 
     this.ctx = canvas.getContext('2d');
@@ -116,29 +116,34 @@ var Game = /*#__PURE__*/function () {
       width: canvas.width,
       height: canvas.height
     };
-    this.difficulty = difficulty;
     this.gameOver = false;
     this.score = 0;
     this.platforms = [];
-    this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, this.difficulty);
-
-    switch (difficulty) {
-      case 'easy':
-        this.num_platforms = 20;
-        break;
-
-      case 'insane':
-        this.num_platforms = 20;
-        break;
-
-      default:
-        this.num_platforms = 15;
-    }
-
-    this.addPlatforms();
   }
 
   _createClass(Game, [{
+    key: "addDifficulty",
+    value: function addDifficulty(difficulty) {
+      this.difficulty = difficulty;
+
+      switch (difficulty) {
+        case 'easy':
+          this.num_platforms = 20;
+          break;
+
+        case 'insane':
+          this.num_platforms = 20;
+          break;
+
+        default:
+          this.num_platforms = 15;
+      }
+
+      ;
+      this.addPlatforms();
+      this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, difficulty);
+    }
+  }, {
     key: "addPlatforms",
     value: function addPlatforms() {
       for (var i = 0; i < this.num_platforms; i++) {
@@ -197,7 +202,7 @@ var Game = /*#__PURE__*/function () {
     value: function restart() {
       this.gameOver = false;
       this.score = 0;
-      this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions);
+      this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, this.difficulty);
       this.platforms = [];
       this.addPlatforms();
       this.play();
@@ -222,8 +227,10 @@ var Game = /*#__PURE__*/function () {
       cancelAnimationFrame(requestId);
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
+      var goHome = document.getElementById('go-home');
       replay.classList.remove('hidden');
       gameOver.classList.remove('hidden');
+      goHome.classList.remove('hidden');
     }
   }, {
     key: "updateScore",
@@ -274,62 +281,51 @@ window.addEventListener('DOMContentLoaded', function () {
   var canvas = document.getElementById('canvas');
   var replay = document.getElementById('replay');
   var gameOver = document.getElementById('game-over');
+  var goHome = document.getElementById('go-home');
   replay.classList.add('hidden');
   gameOver.classList.add('hidden');
+  goHome.classList.add('hidden');
   var instructions = document.getElementById('instructions');
   var selectMode = document.getElementById('select-mode');
+  var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
+
+  document.onkeydown = function (e) {
+    return game.keydown(e);
+  };
+
+  document.onkeyup = function (e) {
+    return game.keyup(e);
+  };
+
   var easy = document.getElementById('easy');
   easy.addEventListener('click', function () {
     instructions.classList.add('hidden');
     selectMode.classList.add('hidden');
-    var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'easy');
-
-    document.onkeydown = function (e) {
-      return game.keydown(e);
-    };
-
-    document.onkeyup = function (e) {
-      return game.keyup(e);
-    };
-
+    game.addDifficulty('easy');
     game.play();
   });
   var normal = document.getElementById('normal');
   normal.addEventListener('click', function () {
     instructions.classList.add('hidden');
     selectMode.classList.add('hidden');
-    var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
-
-    document.onkeydown = function (e) {
-      return game.keydown(e);
-    };
-
-    document.onkeyup = function (e) {
-      return game.keyup(e);
-    };
-
+    game.addDifficulty('normal');
     game.play();
   });
   var insane = document.getElementById('insane');
   insane.addEventListener('click', function () {
     instructions.classList.add('hidden');
     selectMode.classList.add('hidden');
-    var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'insane');
-
-    document.onkeydown = function (e) {
-      return game.keydown(e);
-    };
-
-    document.onkeyup = function (e) {
-      return game.keyup(e);
-    };
-
+    game.addDifficulty('insane');
     game.play();
   });
   replay.addEventListener('click', function () {
-    window.location.reload(); // replay.classList.add('hidden');
-    // gameOver.classList.add('hidden');
-    // game.restart();
+    replay.classList.add('hidden');
+    gameOver.classList.add('hidden');
+    goHome.classList.add('hidden');
+    game.restart();
+  });
+  goHome.addEventListener('click', function () {
+    window.location.reload();
   });
   var gameTitle = document.getElementById('game-title');
   gameTitle.addEventListener('click', function () {

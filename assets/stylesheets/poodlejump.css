@@ -1,5 +1,7 @@
-canvas {
-    box-shadow: 2px 2px 12px 4px #636363;
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -16,37 +18,35 @@ body {
     align-items: center;
 }
 
-#github {
-    position: relative;
-    top: 5px;
-    width: 38px;
-    filter: brightness(10%);
-}
-
-#linkedin {
-    position: relative;
-    top: 5px;
-    width: 40px;
-    filter: brightness(60%);
-}
-
-#github:hover {
-    filter: brightness(40%);
-}
-
-#linkedin:hover {
-    filter: brightness(110%);
-}
-
 #game-title {
     font-size: 36px;
     font-weight: 700;
     color: #333333;
 }
-
 #game-title:hover {
     cursor: pointer;
     text-decoration: underline #303030c2;
+}
+
+.personal-link {
+    position: relative;
+    top: 5px;
+}
+
+#github {
+    width: 38px;
+    filter: brightness(10%);
+}
+#github:hover {
+    filter: brightness(40%);
+}
+
+#linkedin {
+    width: 40px;
+    filter: brightness(60%);
+}
+#linkedin:hover {
+    filter: brightness(110%);
 }
 
 .main {
@@ -55,10 +55,8 @@ body {
     align-items: center;
 }
 
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+canvas {
+    box-shadow: 2px 2px 12px 4px #636363;
 }
 
 #canvas {
@@ -95,6 +93,12 @@ ul {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+#instruction-list li {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
 #lb-1 {
     background-image: linear-gradient(to right, #d8b5ff, #1eae98);
 }
@@ -103,40 +107,6 @@ ul {
 }
 #lb-3 {
     background-image: linear-gradient(to right, #bff098, #6fd6ff);
-}
-
-#instruction-list li {
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-#replay {
-    position: absolute;
-    top: 540px;
-    color: white;
-    font-size: 28px;
-    font-weight: 600;
-    padding: 3px 12px;
-    border: 3px solid white;
-    border-radius: 5px;
-    letter-spacing: 0.5px;
-    background-color: #00000062;
-}
-
-#replay:hover, #normal:hover {
-    cursor: pointer;
-    color: #f98dc9;
-    border: 3px solid #27fdf5;
-}
-#easy:hover {
-    cursor: pointer;
-    color: #fdb515;
-    border: 3px solid #2f6ca5;
-}
-#insane:hover {
-    cursor: pointer;
-    color: red;
-    border: 3px solid black;
 }
 
 #select-mode {
@@ -170,6 +140,22 @@ ul {
     text-align: center;
     margin-bottom: 15px;
 }
+.game-mode:hover {
+    cursor: pointer;
+}
+
+#easy:hover {
+    color: #fdb515;
+    border: 3px solid #2f6ca5;
+}
+#normal:hover {
+    color: #f98dc9;
+    border: 3px solid #27fdf5;
+}
+#insane:hover {
+    color: red;
+    border: 3px solid black;
+}
 
 #game-over {
     position: absolute;
@@ -183,6 +169,39 @@ ul {
     letter-spacing: 0.5px;
     padding: 20px 30px;
     background-color: #0000004f;
+}
+
+.game-over-buttons {
+    position: absolute;
+    height: 32px;
+    width: 194px;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border: 3px solid white;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    background-color: #00000062;
+    text-align: center;
+}
+
+#replay {
+    top: 540px;
+}
+#replay:hover {
+    cursor: pointer;
+    color: #f98dc9;
+    border: 3px solid #27fdf5;
+}
+
+#go-home {
+    top: 610px;
+    filter: brightness(70%);
+}
+#go-home:hover {
+    cursor: pointer;
+    filter: brightness(90%);
 }
 
 .hidden {
