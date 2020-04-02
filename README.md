@@ -1,4 +1,4 @@
-## Poodle Jump
+# Poodle Jump
 
 [Live Link](https://jayfang88.github.io/poodle-jump/)
 
