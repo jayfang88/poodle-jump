@@ -32,9 +32,7 @@ let easy = document.getElementById('easy');
 easy.addEventListener('click', () => {
     instructions.classList.add('hidden');
     selectMode.classList.add('hidden');
-    const game = new Game(canvas, 'easy');
-    document.onkeydown = e => game.keydown(e);
-    document.onkeyup = e => game.keyup(e);
+    game.addDifficulty('easy');
     game.play();
 });
 ```
@@ -74,12 +72,12 @@ move() {
 Collision detection between the poodle and platform determines if the poodle is 'jumping' or not.
 ```javascript
 landedOn(platform) {
-    let poBottom = this.y + this.r;
-
+    let poBottom = this.y + this.h;
+        
     //Locate the bottom y of poodle and check if it is within the y values of 
     //the platform. Check if poodle x edges are at least 10px within platform x values.
-    if ((poBottom <= platform.y + platform.h + 3) && (poBottom >= platform.y - 3) && 
-    (this.x >= platform.x - this.r + 10) && (this.x <= platform.x + platform.w - 10)) {
+    if ((poBottom <= platform.y + platform.h + 3) && (poBottom >= platform.y - 1) && 
+    (this.x >= platform.x - this.w + 10) && (this.x <= platform.x + platform.w - 10)) {
         //If poodle is already jumping or on it's way up, do not repeatedly jump.
         //Only jumps if yVel is positive, or the poodle is falling once again.
         if (this.yVel > 0) {
@@ -95,6 +93,5 @@ landedOn(platform) {
 
 
 ### Future Features
-- Replace player icon from white ball to preloaded poodle images
 - Allow users to select desired character to play with
 - Implement game sounds
