@@ -183,18 +183,20 @@ var Game = /*#__PURE__*/function () {
     key: "keydown",
     value: function keydown(e) {
       if (e.keyCode === 37) {
-        this.poodle.left = true;
+        this.poodle.movingLeft = true;
+        this.poodle.facing = 'left';
       } else if (e.keyCode === 39) {
-        this.poodle.right = true;
+        this.poodle.movingRight = true;
+        this.poodle.facing = 'right';
       }
     }
   }, {
     key: "keyup",
     value: function keyup(e) {
       if (e.keyCode === 37) {
-        this.poodle.left = false;
+        this.poodle.movingLeft = false;
       } else if (e.keyCode === 39) {
-        this.poodle.right = false;
+        this.poodle.movingRight = false;
       }
     }
   }, {
@@ -330,7 +332,8 @@ window.addEventListener('DOMContentLoaded', function () {
   var gameTitle = document.getElementById('game-title');
   gameTitle.addEventListener('click', function () {
     window.location.reload();
-  });
+  }); //prevent default window movement if screen is mimized
+
   window.addEventListener('keydown', function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
       e.preventDefault();
@@ -444,14 +447,19 @@ var Poodle = /*#__PURE__*/function () {
     this.boardDimensions = dimensions;
     this.difficulty = difficulty;
     this.heightJumped = 0;
-    this.left = false;
-    this.right = false;
+    this.movingLeft = false;
+    this.movingRight = false;
+    this.facing = 'left';
     this.jumping = true;
+    this.leftImg = new Image();
+    this.leftImg.src = 'assets/images/poodle-left.png';
+    this.rightImg = new Image();
+    this.rightImg.src = 'assets/images/poodle-right.png';
     this.x = dimensions.width / 2;
     this.y = 450;
     this.r = 25;
     this.w = 50;
-    this.h = 50;
+    this.h = 47;
 
     switch (this.difficulty) {
       case 'easy':
@@ -501,19 +509,19 @@ var Poodle = /*#__PURE__*/function () {
       this.yVel += this.gravity;
       this.y += this.yVel;
 
-      if (this.left) {
+      if (this.movingLeft) {
         this.moveLeft();
-      } else if (this.right) {
+      } else if (this.movingRight) {
         this.moveRight();
       }
     }
   }, {
     key: "landedOn",
     value: function landedOn(platform) {
-      var poBottom = this.y + this.r; //Locate the bottom y of poodle and check if it is within the y values of 
+      var poBottom = this.y + this.h; //Locate the bottom y of poodle and check if it is within the y values of 
       //the platform. Check if poodle x edges are at least 10px within platform x values.
 
-      if (poBottom <= platform.y + platform.h + 3 && poBottom >= platform.y - 3 && this.x >= platform.x - this.r + 10 && this.x <= platform.x + platform.w - 10) {
+      if (poBottom <= platform.y + platform.h + 3 && poBottom >= platform.y - 1 && this.x >= platform.x - this.w + 10 && this.x <= platform.x + platform.w - 10) {
         //If poodle is already jumping or on it's way up, do not repeatedly jump.
         //Only jumps if yVel is positive, or the poodle is falling once again.
         if (this.yVel > 0) {
@@ -541,10 +549,15 @@ var Poodle = /*#__PURE__*/function () {
     key: "draw",
     value: function draw(ctx) {
       ctx.clearRect(0, 0, ctx.width, ctx.height);
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.w / 2, 0, 2 * Math.PI);
-      ctx.fillStyle = 'rgba(255, 255, 255)';
-      ctx.fill(); // ctx.fillRect(this.x, this.y, this.w, this.h);
+
+      if (this.facing === 'left') {
+        ctx.drawImage(this.leftImg, this.x, this.y); // ctx.beginPath();
+        // ctx.arc(this.x, this.y, this.w/2, 0, 2 * Math.PI);
+        // ctx.fillStyle = 'rgba(255, 255, 255)';
+        // ctx.fill();    
+      } else {
+        ctx.drawImage(this.rightImg, this.x, this.y);
+      }
     }
   }, {
     key: "outOfBounds",
