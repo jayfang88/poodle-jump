@@ -288,6 +288,7 @@ window.addEventListener('DOMContentLoaded', function () {
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
   var instructions = document.getElementById('instructions');
+  var poodle = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
 
@@ -302,6 +303,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var easy = document.getElementById('easy');
   easy.addEventListener('click', function () {
     instructions.classList.add('hidden');
+    poodle.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('easy');
     game.play();
@@ -309,6 +311,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var normal = document.getElementById('normal');
   normal.addEventListener('click', function () {
     instructions.classList.add('hidden');
+    poodle.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('normal');
     game.play();
@@ -316,6 +319,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var insane = document.getElementById('insane');
   insane.addEventListener('click', function () {
     instructions.classList.add('hidden');
+    poodle.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('insane');
     game.play();
@@ -332,7 +336,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var gameTitle = document.getElementById('game-title');
   gameTitle.addEventListener('click', function () {
     window.location.reload();
-  }); //prevent default window movement if screen is mimized
+  }); //prevent default window movement if screen is minimized
 
   window.addEventListener('keydown', function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
@@ -455,7 +459,7 @@ var Poodle = /*#__PURE__*/function () {
     this.leftImg.src = 'assets/images/poodle-left.png';
     this.rightImg = new Image();
     this.rightImg.src = 'assets/images/poodle-right.png';
-    this.x = dimensions.width / 2;
+    this.x = dimensions.width / 2 - 25;
     this.y = 450;
     this.r = 25;
     this.w = 50;
@@ -526,6 +530,7 @@ var Poodle = /*#__PURE__*/function () {
         //Only jumps if yVel is positive, or the poodle is falling once again.
         if (this.yVel > 0) {
           this.jumping = true;
+          platform.randColor();
           this.heightJumped += this.yVel * 4;
           return true;
         }
@@ -562,7 +567,7 @@ var Poodle = /*#__PURE__*/function () {
   }, {
     key: "outOfBounds",
     value: function outOfBounds() {
-      return this.y > this.boardDimensions.height;
+      return this.y >= this.boardDimensions.height;
     }
   }]);
 

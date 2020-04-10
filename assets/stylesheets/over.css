@@ -1,0 +1,50 @@
+#game-over {
+    position: absolute;
+    flex-wrap: wrap;
+    text-align: center;
+    max-width: 500px;
+    top: 340px;
+    color: white;
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 20px 30px;
+    background-color: #0000004f;
+}
+
+.game-over-buttons {
+    position: absolute;
+    height: 32px;
+    width: 194px;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border: 3px solid white;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    background-color: #00000062;
+    text-align: center;
+}
+
+#replay {
+    top: 540px;
+}
+#replay:hover {
+    cursor: pointer;
+    color: #f98dc9;
+    border: 3px solid #27fdf5;
+}
+
+#go-home {
+    top: 610px;
+    filter: brightness(60%);
+}
+#go-home:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
+.hidden {
+    display: none;
+}

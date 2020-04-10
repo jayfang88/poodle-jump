@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poodle Jump</title>
-    <link rel="stylesheet" href="./assets/stylesheets/poodlejump.css">
+    <link rel="stylesheet" href="./assets/stylesheets/main.css">
+    <link rel="stylesheet" href="./assets/stylesheets/home.css">
+    <link rel="stylesheet" href="./assets/stylesheets/over.css">
     <link rel="shortcut icon" type='image/x-icon' href="favicon.ico">
     <script src="./bundle.js"></script>
 </head>
@@ -24,27 +26,31 @@
     </header>
 
     <main class='main'>
-            <canvas id="canvas" width="700" height="780"></canvas>
-            <div id='instructions'>
-                <label id='instructions-label'>Instructions:</label>
-                <ul id='instruction-list'>
-                    <li><span class='list-bullet' id='lb-1'>-</span> Use left and right arrow keys to move around</li>
-                    <li><span class='list-bullet' id='lb-2'>-</span> Land on the platforms to continue jumping</li>
-                    <li><span class='list-bullet' id='lb-3'>-</span> See how long you can survive!</li>
-                </ul>
+        <canvas id="canvas" width="700" height="780"></canvas>
+        <div id='instructions'>
+            <label id='instructions-label'>Instructions:</label>
+            <ul id='instruction-list'>
+                <li><span class='list-bullet' id='lb-1'>-</span> Use left and right arrow keys to move around</li>
+                <li><span class='list-bullet' id='lb-2'>-</span> Land on the platforms to continue jumping</li>
+                <li><span class='list-bullet' id='lb-3'>-</span> See how long you can survive!</li>
+            </ul>
+        </div>
+        <div class='home-demo'>
+            <img src="./assets/images/poodle-left.png" id='home-poodle'>
+            <p id='home-platform'></p>
+        </div>
+        <div id='select-mode'>
+            <label id='mode-label'>Select difficulty:</label>
+            <div id='mode-choices'>
+                <div class='game-mode' id='easy'>Easy</div>
+                <div class='game-mode' id='normal'>Normal</div>
+                <div class='game-mode' id='insane'>Insane</div>
             </div>
-            <div id='select-mode'>
-                <label id='mode-label'>Select difficulty:</label>
-                <div id='mode-choices'>
-                    <div class='game-mode' id='easy'>Easy</div>
-                    <div class='game-mode' id='normal'>Normal</div>
-                    <div class='game-mode' id='insane'>Insane</div>
-                </div>
-            </div>
-            <div id='game-over'>Game Over :(</div>
-            <div class='game-over-buttons' id='replay'>Play again!</div>
-            <div class='game-over-buttons' id='go-home'>Return home</div>
-        </main>
+        </div>
+        <div id='game-over'>Game Over :(</div>
+        <div class='game-over-buttons' id='replay'>Play again!</div>
+        <div class='game-over-buttons' id='go-home'>Return home</div>
+    </main>
     
 </body>
 
