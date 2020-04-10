@@ -288,7 +288,7 @@ window.addEventListener('DOMContentLoaded', function () {
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
   var instructions = document.getElementById('instructions');
-  var poodle = document.getElementsByClassName('home-demo')[0];
+  var example = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
 
@@ -303,7 +303,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var easy = document.getElementById('easy');
   easy.addEventListener('click', function () {
     instructions.classList.add('hidden');
-    poodle.classList.add('hidden');
+    example.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('easy');
     game.play();
@@ -311,7 +311,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var normal = document.getElementById('normal');
   normal.addEventListener('click', function () {
     instructions.classList.add('hidden');
-    poodle.classList.add('hidden');
+    example.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('normal');
     game.play();
@@ -319,7 +319,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var insane = document.getElementById('insane');
   insane.addEventListener('click', function () {
     instructions.classList.add('hidden');
-    poodle.classList.add('hidden');
+    example.classList.add('hidden');
     selectMode.classList.add('hidden');
     game.addDifficulty('insane');
     game.play();
