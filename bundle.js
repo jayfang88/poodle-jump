@@ -287,6 +287,21 @@ window.addEventListener('DOMContentLoaded', function () {
   replay.classList.add('hidden');
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
+
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+  }
+
+  setInterval(function () {
+    document.getElementById('home-platform').style.backgroundColor = getRandomColor();
+  }, 760);
   var instructions = document.getElementById('instructions');
   var example = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');

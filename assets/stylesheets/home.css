@@ -1,6 +1,6 @@
 #instructions {
     position: absolute;
-    top: 200px;
+    top: 180px;
     color: white;
     padding: 24px 25px;
     background-color: rgba(255, 255, 255, 0.274);
@@ -105,9 +105,9 @@
 
 #home-poodle {
     position: absolute;
-    top: 520px;
+    top: 510px;
 
-    animation: bounce 0.35s;
+    animation: bounce 0.38s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
 }
@@ -115,7 +115,7 @@
 
 #home-platform {
     position: absolute;
-    top: 551px;
+    top: 541px;
     width: 63px;
     height: 10px;
     background-color: cyan;
