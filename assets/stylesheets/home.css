@@ -46,7 +46,7 @@
 
 #select-mode {
     position: absolute;
-    top: 600px;
+    top: 590px;
 }
 
 #mode-label {
@@ -105,9 +105,9 @@
 
 #home-poodle {
     position: absolute;
-    top: 510px;
+    top: 500px;
 
-    animation: bounce 0.38s;
+    animation: bounce 0.4s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
 }
@@ -115,7 +115,7 @@
 
 #home-platform {
     position: absolute;
-    top: 541px;
+    top: 531px;
     width: 63px;
     height: 10px;
     background-color: cyan;

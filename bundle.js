@@ -299,12 +299,12 @@ window.addEventListener('DOMContentLoaded', function () {
     return color;
   }
 
-  setInterval(function () {
-    document.getElementById('home-platform').style.backgroundColor = getRandomColor();
-  }, 760);
   var instructions = document.getElementById('instructions');
   var example = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');
+  setInterval(function () {
+    document.getElementById('home-platform').style.backgroundColor = getRandomColor();
+  }, 800);
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
 
   document.onkeydown = function (e) {
