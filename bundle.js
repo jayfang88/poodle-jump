@@ -378,7 +378,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var HEX_DIGITS = "0123456789ABCDEF";
+var HEX_DIGITS = "0123456789ABCDEF"; // const COLORS = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
+// const COLORS = ['#08f7fe', '#09fbd3', '#fe53bb', '#f5d300'];
 
 var Platform = /*#__PURE__*/function () {
   function Platform(game) {
@@ -410,11 +411,14 @@ var Platform = /*#__PURE__*/function () {
   _createClass(Platform, [{
     key: "randColor",
     value: function randColor() {
+      // this.color = COLORS[Math.floor(Math.random()*6)]
       this.color = "#";
 
       for (var i = 0; i < 6; i++) {
         this.color += HEX_DIGITS[Math.floor(Math.random() * 16)];
       }
+
+      ;
     }
   }, {
     key: "draw",
