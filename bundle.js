@@ -117,6 +117,7 @@ var Game = /*#__PURE__*/function () {
     this.gameOver = false;
     this.score = 0;
     this.platforms = [];
+    this.highScores = JSON.parse(localStorage.getItem('highscores')) || [];
   }
   _createClass(Game, [{
     key: "addDifficulty",
@@ -217,12 +218,28 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
+      this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
       var goHome = document.getElementById('go-home');
       replay.classList.remove('hidden');
       gameOver.classList.remove('hidden');
       goHome.classList.remove('hidden');
+    }
+  }, {
+    key: "checkHighScores",
+    value: function checkHighScores() {
+      var _this2 = this;
+      if (this.highScores.length < 5 || this.highScores.some(function (score) {
+        return score < _this2.score;
+      })) {
+        this.highScores.push(this.score);
+        this.highScores.sort(function (a, b) {
+          return b - a;
+        });
+        this.highScores = this.highScores.splice(0, 5);
+        localStorage.setItem('highscores', JSON.stringify(this.highScores));
+      }
     }
   }, {
     key: "updateScore",
