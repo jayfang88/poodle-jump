@@ -311,29 +311,15 @@ window.addEventListener('DOMContentLoaded', function () {
   document.onkeyup = function (e) {
     return game.keyup(e);
   };
-  var easy = document.getElementById('easy');
-  easy.addEventListener('click', function () {
-    instructions.classList.add('hidden');
-    example.classList.add('hidden');
-    selectMode.classList.add('hidden');
-    game.addDifficulty('easy');
-    game.play();
-  });
-  var normal = document.getElementById('normal');
-  normal.addEventListener('click', function () {
-    instructions.classList.add('hidden');
-    example.classList.add('hidden');
-    selectMode.classList.add('hidden');
-    game.addDifficulty('normal');
-    game.play();
-  });
-  var insane = document.getElementById('insane');
-  insane.addEventListener('click', function () {
-    instructions.classList.add('hidden');
-    example.classList.add('hidden');
-    selectMode.classList.add('hidden');
-    game.addDifficulty('insane');
-    game.play();
+  var gameModes = Array.from(document.getElementsByClassName('game-mode'));
+  gameModes.forEach(function (gameMode) {
+    gameMode.addEventListener('click', function () {
+      instructions.classList.add('hidden');
+      example.classList.add('hidden');
+      selectMode.classList.add('hidden');
+      game.addDifficulty(gameMode.id);
+      game.play();
+    });
   });
   replay.addEventListener('click', function () {
     replay.classList.add('hidden');
