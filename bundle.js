@@ -98,19 +98,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Game; });
 /* harmony import */ var _platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./platform */ "./lib/platform.js");
 /* harmony import */ var _poodle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./poodle */ "./lib/poodle.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 var Game = /*#__PURE__*/function () {
   function Game(canvas) {
     _classCallCheck(this, Game);
-
     this.ctx = canvas.getContext('2d');
     this.dimensions = {
       width: canvas.width,
@@ -120,25 +118,20 @@ var Game = /*#__PURE__*/function () {
     this.score = 0;
     this.platforms = [];
   }
-
   _createClass(Game, [{
     key: "addDifficulty",
     value: function addDifficulty(difficulty) {
       this.difficulty = difficulty;
-
       switch (difficulty) {
         case 'easy':
           this.num_platforms = 20;
           break;
-
         case 'insane':
           this.num_platforms = 20;
           break;
-
         default:
           this.num_platforms = 15;
       }
-
       ;
       this.addPlatforms();
       this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, difficulty);
@@ -163,7 +156,6 @@ var Game = /*#__PURE__*/function () {
         return platform.move();
       });
       this.poodle.move();
-
       if (this.poodle.outOfBounds()) {
         this.gameOver = true;
       }
@@ -173,7 +165,6 @@ var Game = /*#__PURE__*/function () {
     value: function checkLanding() {
       for (var i = 0; i < this.num_platforms; i++) {
         var platform = this.platforms[i];
-
         if (this.poodle.landedOn(platform)) {
           return true;
         }
@@ -213,12 +204,11 @@ var Game = /*#__PURE__*/function () {
     key: "draw",
     value: function draw() {
       var _this = this;
-
       this.ctx.clearRect(0, 0, innerWidth, innerHeight);
       this.ctx.fillStyle = '#333';
       this.ctx.fillRect(0, 0, this.dimensions.width, this.dimensions.height);
-      this.platforms.forEach(function (p) {
-        return p.draw(_this.ctx);
+      this.platforms.forEach(function (platform) {
+        return platform.draw(_this.ctx);
       });
       this.poodle.draw(this.ctx);
       this.updateScore();
@@ -240,7 +230,6 @@ var Game = /*#__PURE__*/function () {
       if (this.poodle.heightJumped > this.score) {
         this.score = Math.round(this.poodle.heightJumped);
       }
-
       this.ctx.font = '600 42px Courier';
       this.ctx.fillStyle = 'white';
       this.ctx.fillText(this.score, 22, 50);
@@ -251,7 +240,6 @@ var Game = /*#__PURE__*/function () {
       this.step();
       this.draw();
       var requestId;
-
       if (!this.gameOver) {
         requestId = requestAnimationFrame(this.play.bind(this));
       } else {
@@ -259,10 +247,8 @@ var Game = /*#__PURE__*/function () {
       }
     }
   }]);
-
   return Game;
 }();
-
 
 ;
 
@@ -287,18 +273,14 @@ window.addEventListener('DOMContentLoaded', function () {
   replay.classList.add('hidden');
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
-
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
-
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
-
     return color;
   }
-
   var instructions = document.getElementById('instructions');
   var example = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');
@@ -306,15 +288,12 @@ window.addEventListener('DOMContentLoaded', function () {
     document.getElementById('home-platform').style.backgroundColor = getRandomColor();
   }, 800);
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
-
   document.onkeydown = function (e) {
     return game.keydown(e);
   };
-
   document.onkeyup = function (e) {
     return game.keyup(e);
   };
-
   var easy = document.getElementById('easy');
   easy.addEventListener('click', function () {
     instructions.classList.add('hidden');
@@ -351,8 +330,9 @@ window.addEventListener('DOMContentLoaded', function () {
   var gameTitle = document.getElementById('game-title');
   gameTitle.addEventListener('click', function () {
     window.location.reload();
-  }); //prevent default window movement if screen is minimized
+  });
 
+  //prevent default window movement if screen is minimized
   window.addEventListener('keydown', function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
       e.preventDefault();
@@ -372,65 +352,60 @@ window.addEventListener('DOMContentLoaded', function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Platform; });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var HEX_DIGITS = "0123456789ABCDEF"; // const COLORS = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var HEX_DIGITS = "0123456789ABCDEF";
+// const COLORS = ['#ff9aa2', '#ffb7b2', '#ffdac1', '#e2f0cb', '#b5ead7', '#c7ceea'];
 // const COLORS = ['#08f7fe', '#09fbd3', '#fe53bb', '#f5d300'];
-
 var Platform = /*#__PURE__*/function () {
   function Platform(game) {
     _classCallCheck(this, Platform);
-
     this.game = game;
     this.w = 65;
     this.h = 12;
     this.x = Math.random() * (this.game.dimensions.width - this.w);
     this.y = Math.random() * (this.game.dimensions.height - this.h);
     this.randColor();
-
     switch (game.difficulty) {
       case 'easy':
         this.yVel = 2;
         break;
-
       case 'insane':
         this.yVel = 8;
         break;
-
       default:
         this.yVel = 3.5;
     }
-
     ;
   }
-
   _createClass(Platform, [{
     key: "randColor",
     value: function randColor() {
       // this.color = COLORS[Math.floor(Math.random()*6)]
       this.color = "#";
-
       for (var i = 0; i < 6; i++) {
         this.color += HEX_DIGITS[Math.floor(Math.random() * 16)];
       }
-
       ;
     }
   }, {
     key: "draw",
     value: function draw(ctx) {
+      ctx.strokeStyle = this.color;
       ctx.fillStyle = this.color;
-      ctx.fillRect(this.x, this.y, this.w, this.h);
+      ctx.beginPath();
+      ctx.roundRect(this.x, this.y, this.w, this.h, 5);
+      ctx.stroke();
+      ctx.fill();
     }
   }, {
     key: "move",
     value: function move() {
       this.y = this.y + this.yVel;
-
       if (this.y >= this.game.dimensions.height) {
         this.y = 0;
         this.x = Math.random() * 635;
@@ -438,10 +413,8 @@ var Platform = /*#__PURE__*/function () {
       }
     }
   }]);
-
   return Platform;
 }();
-
 
 ;
 
@@ -457,16 +430,15 @@ var Platform = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Poodle; });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var Poodle = /*#__PURE__*/function () {
   function Poodle(dimensions, difficulty) {
     _classCallCheck(this, Poodle);
-
     this.boardDimensions = dimensions;
     this.difficulty = difficulty;
     this.heightJumped = 0;
@@ -483,55 +455,46 @@ var Poodle = /*#__PURE__*/function () {
     this.r = 25;
     this.w = 50;
     this.h = 47;
-
     switch (this.difficulty) {
       case 'easy':
         this.xVel = 5;
         this.yVel = 11;
         this.gravity = 0.35;
         break;
-
       case 'insane':
         this.xVel = 7;
         this.yVel = 20;
         this.gravity = 0.95;
         break;
-
       default:
         this.xVel = 5;
         this.yVel = 13;
         this.gravity = 0.5;
     }
-
     ;
   }
-
   _createClass(Poodle, [{
     key: "move",
     value: function move() {
       if (this.jumping) {
         this.jumping = false;
         this.gravitySpeed = 0;
-
         switch (this.difficulty) {
           case 'easy':
             this.yVel = -11;
             break;
-
           case 'insane':
             this.yVel = -20;
             break;
-
           default:
             this.yVel = -13;
         }
-      } //Consistently add gravity to y velocity. This updates and increases yVel
+      }
+
+      //Consistently add gravity to y velocity. This updates and increases yVel
       //each animation frame.
-
-
       this.yVel += this.gravity;
       this.y += this.yVel;
-
       if (this.movingLeft) {
         this.moveLeft();
       } else if (this.movingRight) {
@@ -541,9 +504,10 @@ var Poodle = /*#__PURE__*/function () {
   }, {
     key: "landedOn",
     value: function landedOn(platform) {
-      var poBottom = this.y + this.h; //Locate the bottom y of poodle and check if it is within the y values of 
-      //the platform. Check if poodle x edges are at least 10px within platform x values.
+      var poBottom = this.y + this.h;
 
+      //Locate the bottom y of poodle and check if it is within the y values of 
+      //the platform. Check if poodle x edges are at least 10px within platform x values.
       if (poBottom <= platform.y + platform.h + 3 && poBottom >= platform.y - 1 && this.x >= platform.x - this.w + 10 && this.x <= platform.x + platform.w - 10) {
         //If poodle is already jumping or on it's way up, do not repeatedly jump.
         //Only jumps if yVel is positive, or the poodle is falling once again.
@@ -573,9 +537,9 @@ var Poodle = /*#__PURE__*/function () {
     key: "draw",
     value: function draw(ctx) {
       ctx.clearRect(0, 0, ctx.width, ctx.height);
-
       if (this.facing === 'left') {
-        ctx.drawImage(this.leftImg, this.x, this.y); // ctx.beginPath();
+        ctx.drawImage(this.leftImg, this.x, this.y);
+        // ctx.beginPath();
         // ctx.arc(this.x, this.y, this.w/2, 0, 2 * Math.PI);
         // ctx.fillStyle = 'rgba(255, 255, 255)';
         // ctx.fill();    
@@ -589,10 +553,8 @@ var Poodle = /*#__PURE__*/function () {
       return this.y >= this.boardDimensions.height;
     }
   }]);
-
   return Poodle;
 }();
-
 
 
 /***/ })
