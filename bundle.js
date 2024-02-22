@@ -117,7 +117,10 @@ var Game = /*#__PURE__*/function () {
     this.gameOver = false;
     this.score = 0;
     this.platforms = [];
-    this.highScores = JSON.parse(localStorage.getItem('highscores')) || [];
+    this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
+    this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
+    this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
+    this.scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
   }
   _createClass(Game, [{
     key: "addDifficulty",
@@ -198,6 +201,9 @@ var Game = /*#__PURE__*/function () {
       this.score = 0;
       this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, this.difficulty);
       this.platforms = [];
+      this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
+      this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
+      this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
       this.addPlatforms();
       this.play();
     }
@@ -218,6 +224,7 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
+      console.log('you lost');
       this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
@@ -230,16 +237,54 @@ var Game = /*#__PURE__*/function () {
     key: "checkHighScores",
     value: function checkHighScores() {
       var _this2 = this;
-      if (this.highScores.length < 5 || this.highScores.some(function (score) {
-        return score < _this2.score;
-      })) {
-        this.highScores.push(this.score);
-        this.highScores.sort(function (a, b) {
-          return b - a;
-        });
-        this.highScores = this.highScores.splice(0, 5);
-        localStorage.setItem('highscores', JSON.stringify(this.highScores));
+      if (this.score === 0) return;
+      var highScores;
+      switch (this.difficulty) {
+        case 'easy':
+          highScores = this.easyHighScores;
+          break;
+        case 'normal':
+          highScores = this.normalHighScores;
+          break;
+        case 'insane':
+          highScores = this.insaneHighScores;
+          break;
+        default:
+          highScores = [];
       }
+      ;
+      console.log(highScores);
+      if (highScores.length < 3 || highScores.some(function (highScore) {
+        return highScore.score < _this2.score;
+      })) {
+        var item = {
+          player: '[player entry]',
+          score: this.score,
+          time: '[time won]'
+        };
+        highScores.push(item);
+        highScores.sort(function (a, b) {
+          return b.score - a.score;
+        });
+        console.log('before slice', highScores);
+        highScores = highScores.slice(0, 3);
+        console.log(highScores);
+        localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
+        this.scoreBoards.forEach(function (scoreboard) {
+          return _this2.populateScoreboard(scoreboard);
+        });
+      }
+    }
+  }, {
+    key: "populateScoreboard",
+    value: function populateScoreboard(scoreboard) {
+      var difficulty = scoreboard.id.split('-')[0];
+      var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
+      console.log(leadersList);
+      var list = leadersList.map(function (leader) {
+        return "\n                    <li>\n                        ".concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
+      }).join('');
+      scoreboard.innerHTML = list;
     }
   }, {
     key: "updateScore",
@@ -287,6 +332,13 @@ window.addEventListener('DOMContentLoaded', function () {
   var replay = document.getElementById('replay');
   var gameOver = document.getElementById('game-over');
   var goHome = document.getElementById('go-home');
+  var instructions = document.getElementById('instructions');
+  var example = document.getElementsByClassName('home-demo')[0];
+  var selectMode = document.getElementById('select-mode');
+  var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
+  var gameModes = Array.from(document.getElementsByClassName('game-mode'));
+  var gameTitle = document.getElementById('game-title');
+  var scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
   replay.classList.add('hidden');
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
@@ -298,20 +350,15 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     return color;
   }
-  var instructions = document.getElementById('instructions');
-  var example = document.getElementsByClassName('home-demo')[0];
-  var selectMode = document.getElementById('select-mode');
   setInterval(function () {
     document.getElementById('home-platform').style.backgroundColor = getRandomColor();
-  }, 800);
-  var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
+  }, 805);
   document.onkeydown = function (e) {
     return game.keydown(e);
   };
   document.onkeyup = function (e) {
     return game.keyup(e);
   };
-  var gameModes = Array.from(document.getElementsByClassName('game-mode'));
   gameModes.forEach(function (gameMode) {
     gameMode.addEventListener('click', function () {
       instructions.classList.add('hidden');
@@ -330,7 +377,6 @@ window.addEventListener('DOMContentLoaded', function () {
   goHome.addEventListener('click', function () {
     window.location.reload();
   });
-  var gameTitle = document.getElementById('game-title');
   gameTitle.addEventListener('click', function () {
     window.location.reload();
   });
@@ -341,6 +387,19 @@ window.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
     }
   });
+  function populateScoreboard(scoreboard) {
+    var difficulty = scoreboard.id.split('-')[0];
+    var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
+    console.log(leadersList);
+    var list = leadersList.map(function (leader) {
+      return "\n                <li>\n                    ".concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                </li>\n            ");
+    }).join('');
+    scoreboard.innerHTML = list;
+  }
+  scoreBoards.forEach(function (scoreboard) {
+    populateScoreboard(scoreboard);
+  });
+  // populateScoreboard();
 });
 
 /***/ }),
