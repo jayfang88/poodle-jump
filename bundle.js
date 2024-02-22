@@ -224,7 +224,6 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
-      console.log('you lost');
       this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
@@ -253,7 +252,6 @@ var Game = /*#__PURE__*/function () {
           highScores = [];
       }
       ;
-      console.log(highScores);
       if (highScores.length < 3 || highScores.some(function (highScore) {
         return highScore.score < _this2.score;
       })) {
@@ -266,9 +264,7 @@ var Game = /*#__PURE__*/function () {
         highScores.sort(function (a, b) {
           return b.score - a.score;
         });
-        console.log('before slice', highScores);
         highScores = highScores.slice(0, 3);
-        console.log(highScores);
         localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
         this.scoreBoards.forEach(function (scoreboard) {
           return _this2.populateScoreboard(scoreboard);
@@ -280,7 +276,6 @@ var Game = /*#__PURE__*/function () {
     value: function populateScoreboard(scoreboard) {
       var difficulty = scoreboard.id.split('-')[0];
       var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
-      console.log(leadersList);
       var list = leadersList.map(function (leader) {
         return "\n                    <li>\n                        ".concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
       }).join('');
@@ -387,19 +382,9 @@ window.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
     }
   });
-  function populateScoreboard(scoreboard) {
-    var difficulty = scoreboard.id.split('-')[0];
-    var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
-    console.log(leadersList);
-    var list = leadersList.map(function (leader) {
-      return "\n                <li>\n                    ".concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                </li>\n            ");
-    }).join('');
-    scoreboard.innerHTML = list;
-  }
   scoreBoards.forEach(function (scoreboard) {
-    populateScoreboard(scoreboard);
+    game.populateScoreboard(scoreboard);
   });
-  // populateScoreboard();
 });
 
 /***/ }),
