@@ -48,21 +48,28 @@
                 <div class='game-mode' id='insane'>Insane</div>
             </div>
         </div>
+        <div id='highscore-page'>
+            <div id='highscore-page-label'>You set a new highscore!</div>
+            <div id='highscore-page-description'>Save your score</div>
+            <form class='highscore-page-form'>
+                <input type='text' name='item' placeholder='' required>
+            </form>
+        </div>
         <div id='game-over'>Game Over :(</div>
         <div class='game-over-buttons' id='replay'>Play again!</div>
         <div class='game-over-buttons' id='go-home'>Return home</div>
 
         <div class='scoreboard'>
             <h2 id='scoreboard-header'>Local Leaders</h2>
-            <label for='easy-leaders'>Easy Mode Leaders</label>
+            <h2 id='easy-leaders-header'>Easy Mode Leaders</h2>
             <ul class='scoreboard-leaders' id='easy-leaders'>
                 <li>No current leaders...</li>
             </ul>
-            <label for='easy-leaders'>Normal Mode Leaders</label>
+            <h2 id='normal-leaders-header'>Normal Mode Leaders</h2>
             <ul class='scoreboard-leaders' id='normal-leaders'>
                 <li>No current leaders...</li>
             </ul>
-            <label for='easy-leaders'>Insane Mode Leaders</label>
+            <h2 id='insane-leaders-header'>Insane Mode Leaders</h2>
             <ul class='scoreboard-leaders' id='insane-leaders'>
                 <li>No current leaders...</li>
             </ul>

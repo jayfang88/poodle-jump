@@ -201,9 +201,6 @@ var Game = /*#__PURE__*/function () {
       this.score = 0;
       this.poodle = new _poodle__WEBPACK_IMPORTED_MODULE_1__["default"](this.dimensions, this.difficulty);
       this.platforms = [];
-      this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
-      this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
-      this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
       this.addPlatforms();
       this.play();
     }
@@ -265,19 +262,35 @@ var Game = /*#__PURE__*/function () {
           return b.score - a.score;
         });
         highScores = highScores.slice(0, 3);
+        console.log(highScores, this.normalHighScores);
         localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
+        this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
+        this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
+        this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
         this.scoreBoards.forEach(function (scoreboard) {
           return _this2.populateScoreboard(scoreboard);
         });
       }
+    }
+
+    // reveals the highscore page. after user inputs name and submits, 
+    // call submitHighScore to update localStorage and highscores list
+  }, {
+    key: "showHighScorePage",
+    value: function showHighScorePage() {}
+  }, {
+    key: "submitHighScore",
+    value: function submitHighScore(e) {
+      e.preventDefault();
+      console.log('GOTTEM');
     }
   }, {
     key: "populateScoreboard",
     value: function populateScoreboard(scoreboard) {
       var difficulty = scoreboard.id.split('-')[0];
       var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
-      var list = leadersList.map(function (leader) {
-        return "\n                    <li>\n                        ".concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
+      var list = leadersList.map(function (leader, i) {
+        return "\n                    <li>\n                        #".concat(i + 1, ": \n                        ").concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
       }).join('');
       scoreboard.innerHTML = list;
     }
@@ -334,6 +347,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var gameModes = Array.from(document.getElementsByClassName('game-mode'));
   var gameTitle = document.getElementById('game-title');
   var scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
+  var highScoreForm = document.querySelector('.highscore-page-form');
   replay.classList.add('hidden');
   gameOver.classList.add('hidden');
   goHome.classList.add('hidden');
@@ -385,6 +399,7 @@ window.addEventListener('DOMContentLoaded', function () {
   scoreBoards.forEach(function (scoreboard) {
     game.populateScoreboard(scoreboard);
   });
+  highScoreForm.addEventListener('submit', game.submitHighScore);
 });
 
 /***/ }),
