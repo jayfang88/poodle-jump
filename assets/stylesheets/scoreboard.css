@@ -1,4 +1,6 @@
 .scoreboard {
-    /* display: none */
+    display: none;
+    position: absolute;
+    color: white;
 }
 

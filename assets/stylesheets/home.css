@@ -92,6 +92,12 @@
     border: 3px solid black;
 }
 
+#local-leaders-button {
+    position: absolute;
+    top: 800px;
+    color: white;
+}
+
 .home-demo {
     display: flex;
     flex-direction: column;
@@ -111,7 +117,6 @@
     animation-direction: alternate;
     animation-iteration-count: infinite;
 }
-
 
 #home-platform {
     position: absolute;

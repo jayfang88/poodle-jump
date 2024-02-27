@@ -121,6 +121,7 @@ var Game = /*#__PURE__*/function () {
     this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
     this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
     this.scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
+    this.highScorePage = document.querySelector('#highscore-page');
   }
   _createClass(Game, [{
     key: "addDifficulty",
@@ -217,6 +218,12 @@ var Game = /*#__PURE__*/function () {
       this.poodle.draw(this.ctx);
       this.updateScore();
     }
+
+    // if lose, stop animation
+    // check if highscore achieved
+    // if yes, show form to enter name
+    // submit and take them to highscores page
+    // if not highscore, show gameOver page
   }, {
     key: "lose",
     value: function lose(requestId) {
@@ -252,17 +259,17 @@ var Game = /*#__PURE__*/function () {
       if (highScores.length < 3 || highScores.some(function (highScore) {
         return highScore.score < _this2.score;
       })) {
+        this.showHighScorePage();
         var item = {
-          player: '[player entry]',
+          player: 'USR',
           score: this.score,
-          time: '[time won]'
+          time: 'time'
         };
         highScores.push(item);
         highScores.sort(function (a, b) {
           return b.score - a.score;
         });
         highScores = highScores.slice(0, 3);
-        console.log(highScores, this.normalHighScores);
         localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
         this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
         this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
@@ -277,7 +284,10 @@ var Game = /*#__PURE__*/function () {
     // call submitHighScore to update localStorage and highscores list
   }, {
     key: "showHighScorePage",
-    value: function showHighScorePage() {}
+    value: function showHighScorePage() {
+      console.log('removing hidden for highscorepage', this.highScorePage);
+      this.highScorePage.classList.remove('hidden');
+    }
   }, {
     key: "submitHighScore",
     value: function submitHighScore(e) {
@@ -291,8 +301,12 @@ var Game = /*#__PURE__*/function () {
       var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
       var list = leadersList.map(function (leader, i) {
         return "\n                    <li>\n                        #".concat(i + 1, ": \n                        ").concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
-      }).join('');
-      scoreboard.innerHTML = list;
+      });
+      var l = [];
+      for (var i = 0; i < 3; i++) {
+        l.push(list[i] || "<li>#".concat(i + 1, ": --- | --- | ---</li>"));
+      }
+      scoreboard.innerHTML = l.join('');
     }
   }, {
     key: "updateScore",
@@ -361,7 +375,7 @@ window.addEventListener('DOMContentLoaded', function () {
   }
   setInterval(function () {
     document.getElementById('home-platform').style.backgroundColor = getRandomColor();
-  }, 805);
+  }, 802);
   document.onkeydown = function (e) {
     return game.keydown(e);
   };
