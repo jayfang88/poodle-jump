@@ -228,7 +228,7 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
-      this.checkHighScores();
+      // this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
       var goHome = document.getElementById('go-home');
@@ -270,7 +270,7 @@ var Game = /*#__PURE__*/function () {
           return b.score - a.score;
         });
         highScores = highScores.slice(0, 3);
-        localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
+        // localStorage.setItem(`${this.difficulty}highscores`, JSON.stringify(highScores));
         this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
         this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
         this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
@@ -362,9 +362,7 @@ window.addEventListener('DOMContentLoaded', function () {
   var gameTitle = document.getElementById('game-title');
   var scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
   var highScoreForm = document.querySelector('.highscore-page-form');
-  replay.classList.add('hidden');
-  gameOver.classList.add('hidden');
-  goHome.classList.add('hidden');
+  var localLeaders = document.querySelector('#local-leaders-button');
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
