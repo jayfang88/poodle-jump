@@ -228,7 +228,7 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
-      this.checkHighScores();
+      // this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
       var goHome = document.getElementById('go-home');

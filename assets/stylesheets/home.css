@@ -93,6 +93,7 @@
 }
 
 #local-leaders-button {
+    display: none;
     width: 20%;
     position: absolute;
     top: 790px;
