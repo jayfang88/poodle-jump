@@ -36,10 +36,12 @@
                 <li><span class='list-bullet' id='lb-3'>-</span> See how long you can survive!</li>
             </ul>
         </div>
+
         <div class='home-demo'>
             <img src="./assets/images/poodle-left.png" id='home-poodle'>
             <p id='home-platform'></p>
         </div>
+
         <div id='select-mode'>
             <label id='mode-label'>Select difficulty:</label>
             <div id='mode-choices'>
@@ -48,8 +50,26 @@
                 <div class='game-mode' id='insane'>Insane</div>
             </div>
         </div>
+        
         <!-- <div id='local-leaders-button'>Local Leaders</div> -->
-
+        
+        <div class='scoreboard hidden'>
+            <h2 id='scoreboard-title'>Local Leaders</h2>
+            <h3 class='scoreboard-header' id='easy-leaders-header'>Easy Mode Leaders</h3>
+            <ul class='scoreboard-leaders' id='easy-leaders-list'>
+                <li>No current leaders...</li>
+            </ul>
+            <h3 class='scoreboard-header' id='normal-leaders-header'>Normal Mode Leaders</h3>
+            <ul class='scoreboard-leaders' id='normal-leaders-list'>
+                <li>No current leaders...</li>
+            </ul>
+            <h3 class='scoreboard-header' id='insane-leaders-header'>Insane Mode Leaders</h3>
+            <ul class='scoreboard-leaders' id='insane-leaders-list'>
+                <li>No current leaders...</li>
+            </ul>
+            <p class='game-over-buttons' id='go-home-ll'>Return home</p>
+        </div>
+        
         <div class='hidden' id='highscore-page'>
             <div id='highscore-page-label'>You set a new highscore!</div>
             <div id='highscore-page-description'>Save your score</div>
@@ -62,22 +82,6 @@
         <div class='hidden' id='game-over'>Game Over :(</div>
         <div class='game-over-buttons hidden' id='replay'>Play again!</div>
         <div class='game-over-buttons hidden' id='go-home'>Return home</div>
-
-        <div class='scoreboard'>
-            <h2 id='scoreboard-header'>Local Leaders</h2>
-            <h3 id='easy-leaders-header'>Easy Mode Leaders</h3>
-            <ul class='scoreboard-leaders' id='easy-leaders-list'>
-                <li>No current leaders...</li>
-            </ul>
-            <h3 id='normal-leaders-header'>Normal Mode Leaders</h3>
-            <ul class='scoreboard-leaders' id='normal-leaders-list'>
-                <li>No current leaders...</li>
-            </ul>
-            <h3 id='insane-leaders-header'>Insane Mode Leaders</h3>
-            <ul class='scoreboard-leaders' id='insane-leaders-list'>
-                <li>No current leaders...</li>
-            </ul>
-        </div>
     </main>
     
 </body>

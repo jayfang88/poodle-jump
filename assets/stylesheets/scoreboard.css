@@ -1,6 +1,45 @@
 .scoreboard {
-    display: none;
+    display: hidden flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     color: white;
+    margin-top: 20px;
+    /* width: 500px; */
 }
 
+#scoreboard-title, .scoreboard-header, .scoreboard-leaders, #go-home-ll{
+    text-align: center;
+}
+
+#scoreboard-title {
+    font-size: 28px;
+}
+
+.scoreboard-header {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.scoreboard-leaders {
+    font-size: 22px;
+    padding-bottom: 5px;
+}
+
+.scoreboard-list-item {
+    padding-bottom: 5px;
+}
+
+#go-home-ll {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 50px;
+    filter: brightness(60%);
+}
+
+#go-home-ll:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}

@@ -1,6 +1,6 @@
 #instructions {
     position: absolute;
-    top: 180px;
+    top: 140px;
     color: white;
     padding: 24px 25px;
     background-color: rgba(255, 255, 255, 0.274);
@@ -46,7 +46,7 @@
 
 #select-mode {
     position: absolute;
-    top: 590px;
+    top: 540px;
 }
 
 #mode-label {
@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.game-mode {
+.game-mode, #local-leaders-button{
     width: 70%;
     color: white;
     font-size: 28px;
@@ -93,9 +93,18 @@
 }
 
 #local-leaders-button {
+    width: 20%;
     position: absolute;
-    top: 820px;
-    color: white;
+    top: 790px;
+    border: 3px solid black;
+    letter-spacing: 0px;
+    font-size: 26px;
+    font-weight: 400;
+}
+#local-leaders-button:hover {
+    cursor:pointer;
+    color: #f98dc9;
+    border: 3px solid white;
 }
 
 .home-demo {
@@ -111,7 +120,7 @@
 
 #home-poodle {
     position: absolute;
-    top: 500px;
+    top: 450px;
 
     animation: bounce 0.4s;
     animation-direction: alternate;
@@ -120,7 +129,7 @@
 
 #home-platform {
     position: absolute;
-    top: 531px;
+    top: 480px;
     width: 63px;
     height: 10px;
     background-color: cyan;

@@ -228,7 +228,7 @@ var Game = /*#__PURE__*/function () {
     key: "lose",
     value: function lose(requestId) {
       cancelAnimationFrame(requestId);
-      // this.checkHighScores();
+      this.checkHighScores();
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
       var goHome = document.getElementById('go-home');
@@ -270,7 +270,7 @@ var Game = /*#__PURE__*/function () {
           return b.score - a.score;
         });
         highScores = highScores.slice(0, 3);
-        // localStorage.setItem(`${this.difficulty}highscores`, JSON.stringify(highScores));
+        localStorage.setItem("".concat(this.difficulty, "highscores"), JSON.stringify(highScores));
         this.easyHighScores = JSON.parse(localStorage.getItem('easyhighscores')) || [];
         this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
         this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
@@ -300,7 +300,7 @@ var Game = /*#__PURE__*/function () {
       var difficulty = scoreboard.id.split('-')[0];
       var leadersList = JSON.parse(localStorage.getItem("".concat(difficulty, "highscores"))) || [];
       var list = leadersList.map(function (leader, i) {
-        return "\n                    <li>\n                        #".concat(i + 1, ": \n                        ").concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
+        return "\n                    <li class='scoreboard-list-item'>\n                        #".concat(i + 1, ": \n                        ").concat(leader.player, " | ").concat(leader.score, " | ").concat(leader.time, "\n                    </li>\n                ");
       });
       var l = [];
       for (var i = 0; i < 3; i++) {
@@ -351,18 +351,21 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var canvas = document.getElementById('canvas');
-  var replay = document.getElementById('replay');
+  var gameOverButtons = document.querySelectorAll('.game-over-buttons');
   var gameOver = document.getElementById('game-over');
+  var replay = document.getElementById('replay');
   var goHome = document.getElementById('go-home');
+  var goHomeLL = document.querySelector('#go-home-ll');
   var instructions = document.getElementById('instructions');
   var example = document.getElementsByClassName('home-demo')[0];
   var selectMode = document.getElementById('select-mode');
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
   var gameModes = Array.from(document.getElementsByClassName('game-mode'));
   var gameTitle = document.getElementById('game-title');
+  var scoreBoardPage = document.querySelector('.scoreboard');
   var scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
   var highScoreForm = document.querySelector('.highscore-page-form');
-  var localLeaders = document.querySelector('#local-leaders-button');
+  var localLeadersButton = document.querySelector('#local-leaders-button');
   function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -370,6 +373,12 @@ window.addEventListener('DOMContentLoaded', function () {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+  }
+  function hideMainPage() {
+    instructions.classList.add('hidden');
+    example.classList.add('hidden');
+    selectMode.classList.add('hidden');
+    localLeadersButton.classList.add('hidden');
   }
   setInterval(function () {
     document.getElementById('home-platform').style.backgroundColor = getRandomColor();
@@ -382,24 +391,25 @@ window.addEventListener('DOMContentLoaded', function () {
   };
   gameModes.forEach(function (gameMode) {
     gameMode.addEventListener('click', function () {
-      instructions.classList.add('hidden');
-      example.classList.add('hidden');
-      selectMode.classList.add('hidden');
+      hideMainPage();
       game.addDifficulty(gameMode.id);
       game.play();
     });
   });
+  localLeadersButton.addEventListener('click', function () {
+    hideMainPage();
+    scoreBoardPage.classList.remove('hidden');
+  });
   replay.addEventListener('click', function () {
-    replay.classList.add('hidden');
     gameOver.classList.add('hidden');
+    replay.classList.add('hidden');
     goHome.classList.add('hidden');
     game.restart();
   });
-  goHome.addEventListener('click', function () {
-    window.location.reload();
-  });
-  gameTitle.addEventListener('click', function () {
-    window.location.reload();
+  Array.from([goHome, goHomeLL, gameTitle]).forEach(function (button) {
+    button.addEventListener('click', function () {
+      window.location.reload();
+    });
   });
 
   //prevent default window movement if screen is minimized
