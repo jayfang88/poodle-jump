@@ -126,7 +126,7 @@ var Game = /*#__PURE__*/function () {
     this.normalHighScores = JSON.parse(localStorage.getItem('normalhighscores')) || [];
     this.insaneHighScores = JSON.parse(localStorage.getItem('insanehighscores')) || [];
     this.scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
-    this.highScorePage = document.querySelector('#highscore-page');
+    this.highScorePage = document.querySelector('#highscore-prompt');
     this.timer = new _timer__WEBPACK_IMPORTED_MODULE_3__["default"]();
   }
   _createClass(Game, [{
@@ -232,8 +232,10 @@ var Game = /*#__PURE__*/function () {
     }
 
     // if lose, stop animation
-    // check if highscore achieved
-    // if yes, show form to enter name
+    // if highscore achieved
+    // select corresponding high scores list based on this.difficulty
+    // reveal name input form
+    // submit form function handles adding to local storage
     // submit and take them to highscores page
     // if not highscore, show gameOver page
   }, {
@@ -242,6 +244,7 @@ var Game = /*#__PURE__*/function () {
       cancelAnimationFrame(requestId);
       this.timer.stopTimer();
       // this.checkHighScores();
+
       var replay = document.getElementById('replay');
       var gameOver = document.getElementById('game-over');
       var goHome = document.getElementById('go-home');
@@ -249,13 +252,9 @@ var Game = /*#__PURE__*/function () {
       gameOver.classList.remove('hidden');
       goHome.classList.remove('hidden');
     }
-
-    // select corresponding high scores list based on current difficulty
-    // if curr score should be in the top 3, reveal input name form
-    // submit form function handles adding to localstorage
   }, {
-    key: "getHighScoreList",
-    value: function getHighScoreList() {
+    key: "selectHighScoreList",
+    value: function selectHighScoreList() {
       var highScores;
       switch (this.difficulty) {
         case 'easy':
@@ -277,12 +276,15 @@ var Game = /*#__PURE__*/function () {
     key: "checkHighScores",
     value: function checkHighScores() {
       var _this2 = this;
-      var highScores = this.getHighScoreList();
+      var highScores = this.selectHighScoreList();
+      var description = document.querySelector('#highscore-prompt-description');
+      var descriptionText = "Your time: " + this.timer.convertElapsedTime(this.score);
       if (highScores.length < 3 || highScores.some(function (highScore) {
         return highScore.score < _this2.score;
       })) {
+        description.innerHTML = descriptionText;
         this.highScorePage.classList.remove('hidden');
-      }
+      } else {}
     }
   }, {
     key: "addHighScore",
@@ -293,7 +295,7 @@ var Game = /*#__PURE__*/function () {
         player: input.value,
         score: this.score
       };
-      var highScores = this.getHighScoreList();
+      var highScores = this.selectHighScoreList();
       highScores.push(item);
       highScores.sort(function (a, b) {
         return b.score - a.score;
@@ -383,9 +385,9 @@ window.addEventListener('DOMContentLoaded', function () {
   var game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas, 'normal');
   var gameModes = Array.from(document.getElementsByClassName('game-mode'));
   var gameTitle = document.getElementById('game-title');
-  var scoreBoardPage = document.querySelector('.scoreboard');
+  var scoreBoardPage = document.querySelector('#scoreboard');
   var scoreBoards = Array.from(document.getElementsByClassName('scoreboard-leaders'));
-  var highScoreForm = document.querySelector('.highscore-page-form');
+  var highScoreForm = document.querySelector('.highscore-prompt-form');
   var localLeadersButton = document.querySelector('#local-leaders-button');
   function getRandomColor() {
     var letters = '0123456789ABCDEF';

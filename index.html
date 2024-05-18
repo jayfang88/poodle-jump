@@ -53,7 +53,7 @@
         
         <div id='local-leaders-button'>Local Leaders</div>
         
-        <div class='scoreboard hidden'>
+        <div class='hidden' id='scoreboard'>
             <h2 id='scoreboard-title'>Local Leaders</h2>
             <h3 class='scoreboard-header' id='easy-leaders-header'>Easy Mode Leaders</h3>
             <ul class='scoreboard-leaders' id='easy-leaders-list'>
@@ -70,11 +70,11 @@
             <div class='game-over-buttons' id='go-home-ll'>Return home</div>
         </div>
         
-        <div class='hidden' id='highscore-page'>
-            <div id='highscore-page-label'>You set a new highscore!</div>
-            <div id='highscore-page-description'>Save your score</div>
-            <form class='highscore-page-form'>
-                <label for='highscore-input'>Enter name</label>
+        <div class='hidden' id='highscore-prompt'>
+            <div id='highscore-prompt-label'>You're on the leaderboard!</div>
+            <div id='highscore-prompt-description'></div>
+            <form class='highscore-prompt-form'>
+                <label for='highscore-input'>Enter a 3-letter name</label>
                 <input id='highscore-input' type='text' name='item' placeholder='' required>
             </form>
         </div>

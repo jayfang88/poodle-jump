@@ -1,4 +1,4 @@
-.scoreboard {
+#scoreboard {
     display: hidden flex;
     flex-direction: column;
     align-items: center;
